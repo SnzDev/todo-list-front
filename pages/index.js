@@ -1,8 +1,27 @@
 import Head from 'next/head';
 import style from './style.module.css';
 import Image from 'next/image';
+import { useState } from 'react';
 
 function Home() {
+    const [checked,setChecked] = useState(false);
+    const [table,setTable] = useState({'att':'ORIENTAR TRABALHO', 'checked':checked});
+
+
+    function checkedOrNot(){
+        if(checked){
+            return style.checked
+        }else{
+            return style.notChecked
+        }
+    }
+    function changeChecked(){
+        if(checked){
+            setChecked(false);
+        }else{
+            setChecked(true);
+        }
+    }
     return (
         <>
             <Head><title>Todo List</title></Head>
@@ -14,13 +33,12 @@ function Home() {
                             <td>TODO</td>
                             <td>ACTION</td>
                         </tr>
-                        <tr>
-                            <td><input type="checkbox" value="1" /></td>
-                            <td>ORIENTAR TRABALHO</td>
+                        <tr className={style.tr}>
+                            <td><input type="checkbox" value="1" onChange={changeChecked}/></td>
+                            <td className={checkedOrNot()}>ORIENTAR TRABALHO</td>
                             <td>
                                 <Image alt="tst" src="/bxs-edit.svg" height="30px" width="30px" />
                                 <Image alt="tst" src="/bxs-trash.svg" height="30px" width="30px" />
-
                             </td>
                         </tr>
                     </table>
