@@ -1,0 +1,53 @@
+import Head from 'next/head';
+import style from './style.module.css';
+import Image from 'next/image';
+import { useState } from 'react';
+
+function Home() {
+    const [checked,setChecked] = useState(false);
+    const [table,setTable] = useState({'att':'ORIENTAR TRABALHO', 'checked':checked});
+
+
+    function checkedOrNot(){
+        if(checked){
+            return style.checked
+        }else{
+            return style.notChecked
+        }
+    }
+    function changeChecked(){
+        if(checked){
+            setChecked(false);
+        }else{
+            setChecked(true);
+        }
+    }
+    return (
+        <>
+            <Head><title>Todo List</title></Head>
+            <div className={style.container}>
+                <div>
+                    <table>
+                        <tr className={style.firstTr}>
+                            <td>#</td>
+                            <td>TODO</td>
+                            <td>ACTION</td>
+                        </tr>
+                        <tr className={style.tr}>
+                            <td><input type="checkbox" value="1" onChange={changeChecked}/></td>
+                            <td className={checkedOrNot()}>ORIENTAR TRABALHO</td>
+	    		    
+	    		    <td>
+	  			test the saving option.
+	    			<a onClick={edit()}><Image alt="tst" src="/bxs-edit.svg" height="30px" width="30px" /></a>
+	    			<a onClick={remove()}><Image alt="tst" src="/bxs-trash.svg" height="30px" width="30px" /></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </>
+    );
+}
+
+export default Home;

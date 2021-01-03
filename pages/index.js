@@ -4,46 +4,50 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 function Home() {
-    const [checked,setChecked] = useState(false);
-    const [table,setTable] = useState({'att':'ORIENTAR TRABALHO', 'checked':checked});
+    const [table,setTable] = useState({'att':'ORIENTAR TRABALHO', 'checked':true});
 
-
-    function checkedOrNot(){
-        if(checked){
-            return style.checked
-        }else{
-            return style.notChecked
-        }
-    }
     function changeChecked(){
-        if(checked){
-            setChecked(false);
+        if(table.checked){
+            setTable({'att':table.att, 'checked':false});
         }else{
-            setChecked(true);
+            setTable({'att':table.att, 'checked':true});
         }
+	 console.log(table.checked)
+    }
+    function remove(){
+	let option = confirm("Do you confirm?");
+	    if(option){
+		setTable('');
+	    }
+    }
+    function edit(){
+    	//alert("You're trying to edit this todo");
+    	let text = prompt("What is your todo?")
+	    console.log(text)
+	    console.log(table.att)
+	    setTable({'att':text, 'checked':table.checked})
     }
     return (
         <>
             <Head><title>Todo List</title></Head>
             <div className={style.container}>
-                <div>
-                    <table>
+                 <table>
                         <tr className={style.firstTr}>
                             <td>#</td>
                             <td>TODO</td>
                             <td>ACTION</td>
                         </tr>
-                        <tr className={style.tr}>
-                            <td><input type="checkbox" value="1" onChange={changeChecked}/></td>
-                            <td className={checkedOrNot()}>ORIENTAR TRABALHO</td>
+                        <tbody className={style.tr}>
+                            <td><input type="checkbox" value={table.checked} onChange={changeChecked}/></td>
+                            <td className={style.notChecked}>{table.att}</td>
                             <td>
-                                <Image alt="tst" src="/bxs-edit.svg" height="30px" width="30px" />
-                                <Image alt="tst" src="/bxs-trash.svg" height="30px" width="30px" />
+	    			Testing the feature save!
+                                <a onClick={edit}><Image alt="tst" src="/bxs-edit.svg" height="30px" width="30px" /></a>
+                                <a onClick={remove}><Image alt="tst" src="/bxs-trash.svg" height="30px" width="30px" /></a>
                             </td>
-                        </tr>
+                        </tbody>
                     </table>
-                </div>
-            </div>
+              </div>
         </>
     );
 }
